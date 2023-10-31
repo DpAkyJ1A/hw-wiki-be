@@ -1,12 +1,14 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors'
+import dotenv from 'dotenv'
+
+console.log(dotenv.config().parsed.TOKEN);
 
 const PORT = process.env.PORT ?? 3000;
 const app = express();
 app.use(cors());
-const TOKEN = "6843300862:AAHH9LfxEbYnrxxNBRDBy54s661eCpCtI4c";
-const TELEGRAM_API_BASE_URL = `https://api.telegram.org/bot${TOKEN}`;
+const TOKEN = dotenv.config().parsed.TOKEN;
 // const ACCESS_TOKEN = "444901bb84e6dfdaa3";
 // const VK_API_VERSION = '5.131'; // Версия VK API
 // const GROUP_ID = 'howorld'; // Идентификатор группы ВКонтакте
@@ -23,7 +25,7 @@ app.listen(PORT, () => {
 app.get("/getSubscribersTG", async (req, res) => {
   try {
     const response = await axios.get(
-      `${TELEGRAM_API_BASE_URL}/getChatMembersCount`,
+      `https://api.telegram.org/bot${TOKEN}/getChatMembersCount`,
       {
         params: {
           chat_id: "@TheHolyWorld",
@@ -75,8 +77,8 @@ app.get("/getSubscribersTG", async (req, res) => {
 //   }
 // });
 
-const API_KEY_YOUTUBE = "AIzaSyAPuQJ7JDSPV-QJ-rYjdQvZYAi0zfZpFAw";
-const CHANNEL_ID = "UCFpPYQeIU-cUTf-uyRkg9Rw";
+const API_KEY_YOUTUBE = dotenv.config().parsed.API_KEY_YOUTUBE;
+const CHANNEL_ID = dotenv.config().parsed.CHANNEL_ID;
 
 app.get("/getSubscribersYouTube", async (req, res) => {
   try {
